@@ -1,0 +1,46 @@
+{
+ "properties": {
+  "displayName": "Enforce Parent Policy",
+  "policyType": "Custom",
+  "mode": "All",
+  "description": "This Policy requires valid parent policy",
+  "metadata": {
+   "createdBy": "c4cceedd-e245-45a2-a0f5-3f918ae05876",
+   "createdOn": "2021-03-24T11:33:33.9763253Z",
+   "updatedBy": "c4cceedd-e245-45a2-a0f5-3f918ae05876",
+   "updatedOn": "2021-03-24T13:05:43.3265427Z"
+  },
+  "parameters": {
+   "ParentPolicyId": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Parent Policy Id",
+     "description": "This is the id of the parent firewall policy itself."
+    },
+    "defaultValue": "/subscriptions/a46bd76a-c5b1-41f5-8b14-ff202e754071/resourceGroups/SecurityLab/providers/Microsoft.Network/firewallPolicies/Parent"
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "equals": "Microsoft.Network/FirewallPolicies"
+     }
+    ]
+   },
+   "then": {
+    "effect": "append",
+    "details": [
+     {
+      "field": "Microsoft.Network/firewallPolicies/basePolicy.id",
+      "value": "[parameters('ParentPolicyId')]"
+     }
+    ]
+   }
+  }
+ },
+ "id": "/subscriptions/a46bd76a-c5b1-41f5-8b14-ff202e754071/providers/Microsoft.Authorization/policyDefinitions/b3bd9dc5-a503-4ac4-852e-9b757ef7f2d8",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "b3bd9dc5-a503-4ac4-852e-9b757ef7f2d8"
+}
